@@ -1,0 +1,118 @@
+import datetime
+from datetime import date
+from datetime import datetime
+work=[]
+dates=[]
+time=[]
+
+remind_data=open("Reminders_data.txt","r+")
+a=remind_data.readlines()
+clear_remind_data=[]
+
+# whole loop work for append data in list without \n
+
+for i in a:
+    b=clear_remind_data.append(i.strip())
+#print(clear_remind_data)
+# this loop work for append data in different list like tiem date work which we need
+for i in range(1):
+    loop_no=int(len(clear_remind_data)/3)
+    
+    l=0
+    for i in range(0,loop_no):
+        work_remind=clear_remind_data[l]
+        work.append(str(work_remind))
+        l=l+3
+        
+    l=1    
+    for i in range(0,loop_no):
+        date_remind=clear_remind_data[l]
+        dates.append((date_remind))
+        l=l+3
+    
+    l=2
+    for i in range(0,loop_no):
+        time_remind=clear_remind_data[l]
+        time.append((time_remind))
+        l=l+3
+
+#Main Code start from here 
+for i in range(2):
+    print("1 For Adding Reminders","\n"+"2 For Check Todays Reminders")       
+    user_input=int(input("Enter Option Number : "))
+    if user_input==1:
+        for j in range(5):
+            add_remind=input("Want to add Reminders (yes/no) : ")
+            if add_remind==("yes" or "YES" or "Yes"):
+                add_work=input("Enter Work : ")
+                remind_data.writelines(str(add_work)+"\n")
+            
+                add_date=input("Type Date dd mm year (Using Space): ")
+                add_date=datetime.strptime(add_date, "%d %m %Y")
+                add_date=str(add_date)
+                remind_data.writelines(add_date+"\n")
+        
+                add_time=input("Enter Time with (AM/PM): ")
+                add_time=datetime.strptime(add_time, "%I %M %S %p")
+                remind_data.writelines(str(add_time.time())+"\n")
+            else:
+                break
+                
+    elif user_input==2:
+        today_date=date.today()
+        j=0
+        for i in range(2):
+            user_input1=int(input("1 For Today's Reminders"+"\n"+"2 For Others Reminders"+"\n"+"3 For All Reminders : "))
+            if user_input1==1:
+                j=0
+                print("Today's Reminders")
+                for i in range(len(dates)):
+                    date_time_obj=datetime.strptime(dates[j], '%Y-%m-%d %H:%M:%S')
+                    date_time=date_time_obj.date()
+                    # Vareable for store printing data once
+                    if (today_date)==(date_time):
+                        Work=work[j]
+                        Times=time[j]
+                        Dates=date_time
+                        
+                    
+                        print(f"{Work:15}{str(Dates):15}{Times:12}")
+                        print("_"*40)
+                    else:
+                        pass    
+                    j=j+1
+            elif user_input1==2:
+                today_date=date.today()
+                k=0
+                print("Other's Reminders")
+                for i in range(len(dates)):
+                    date_time_obj=datetime.strptime(dates[k], '%Y-%m-%d %H:%M:%S')
+                    date_time=date_time_obj.date()
+                    if (today_date)!=(date_time):
+                        Work=work[k]
+                        Times=time[k]
+                        Dates=date_time
+                        
+                        print("_"*40)
+                        print(f"{Work:15}{str(Dates):15}{Times:12}")
+                        print("_"*40)
+                    else:
+                        pass
+                    k=k+1
+            elif user_input1==3:
+                today_date=date.today()
+                l=0
+                print("All Reminders")
+                for i in range(len(dates)):
+                    date_time_obj=datetime.strptime(dates[l], '%Y-%m-%d %H:%M:%S')
+                    date_time=date_time_obj.date()
+                    Work=work[l]
+                    Times=time[l]
+                    Dates=date_time
+                    
+                    print("_"*40)
+                    print(f"{Work:15}{str(Dates):15}{Times:12}")
+                    print("_"*40)
+                    l=l+1                        
+
+

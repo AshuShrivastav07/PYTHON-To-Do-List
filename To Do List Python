@@ -1,16 +1,13 @@
 import datetime
-#import shutil
+import shutil
 from datetime import date
 from datetime import datetime
 
 temp_file=open("temp.txt","a+")
 remind_data=open("Reminders_data.txt","a+")
-
-# whole loop work for append data in list without \n
-
 #Main Code start from here 
 for i in range(2):
-    print("1 For Adding Reminders","\n"+"2 For Check Todays Reminders","\n"+"3 For Delete Reminders ")       
+    print("1 For Adding Reminders","\n"+"2 For Check Todays Reminders")
     user_input=int(input("Enter Option Number : "))
     print("\n",end="")
     if user_input==1:
@@ -56,6 +53,8 @@ for i in range(2):
                 clear_remind_data.append(i.strip())
 
 # this loop work for append data in different list like tiem date work which we need
+# whole loop work for append data in list without \n
+
             for i in range(1):
                 loop_no=int(len(clear_remind_data)/3)
     
@@ -124,3 +123,7 @@ for i in range(2):
                         print(f"{Work:15}{str(Dates):15}{Times:12}")
                         print("_"*40)
                         l=l+1
+
+
+temp_file.close()
+remind_data.close()
